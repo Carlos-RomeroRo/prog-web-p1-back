@@ -18,12 +18,15 @@ This is a sample Spring Boot 3.2.2 project with Gradle and Java 17.
 2. Navigate to the project directory:
 
    ```bash
-   cd prog-web-p1-back
+   cd jpa-springboot
    ```
 
 3. Create environment file:
    - Look for `application.properties.template` in the resources directory and copy it to the new file
    - Edit the `application.properties` file to match your environment values
+
+4. Ignore the properties file:
+   - Run `git update-index --skip-worktree .\src\main\resources\application.properties` to ignore the properties file
 
 
 ## Running the Project
