@@ -2,7 +2,14 @@ package desarrolloweb.progwebp1back.models.db.entities;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import java.sql.Timestamp;
 
@@ -16,11 +23,11 @@ public class Mensaje {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "creador_email", nullable = false)
+    @JoinColumn(name = "creador_email", referencedColumnName = "email", nullable = false)
     private Usuario creador;
 
     @ManyToOne
-    @JoinColumn(name = "destinatario_email", nullable = false)
+    @JoinColumn(name = "destinatario_email", referencedColumnName = "email", nullable = false)
     private Usuario destinatario;
 
     @Column(nullable = false)
@@ -28,6 +35,4 @@ public class Mensaje {
 
     @Column(columnDefinition = "TEXT")
     private String contenido;
-
-    // Getters and Setters
 }
