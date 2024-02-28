@@ -22,9 +22,8 @@ This is a sample Spring Boot 3.2.2 project with Gradle and Java 17.
    ```
 
 3. Create environment file:
-   - Create a `application-local.properties` in the resources directory
-   - Look for `application-local.properties.template` in the resources directory and copy it to the new file
-   - Edit the properties in the new file to match your environment values
+   - Look for `application.properties.template` in the resources directory and copy it to the new file
+   - Edit the `application.properties` file to match your environment values
 
 
 ## Running the Project
