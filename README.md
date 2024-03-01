@@ -22,7 +22,7 @@ This is a sample Spring Boot 3.2.2 project with Gradle and Java 17.
    ```
 
 3. Create environment file:
-   - Look for `application.properties.template` in the resources directory and copy it to the new file
+   - Look for `application.properties.template` in the resources directory and copy it to the `application.properties` file
    - Edit the `application.properties` file to match your environment values
 
 4. Ignore the properties file:

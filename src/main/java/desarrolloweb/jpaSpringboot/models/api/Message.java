@@ -1,4 +1,4 @@
-package desarrolloweb.progwebp1back.models.api;
+package desarrolloweb.jpaSpringboot.models.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

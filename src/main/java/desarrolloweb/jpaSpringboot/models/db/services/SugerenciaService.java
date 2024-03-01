@@ -1,10 +1,10 @@
-package desarrolloweb.progwebp1back.models.db.services;
+package desarrolloweb.jpaSpringboot.models.db.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import desarrolloweb.progwebp1back.models.db.entities.Sugerencia;
-import desarrolloweb.progwebp1back.models.db.repositories.SugerenciaRepository;
+import desarrolloweb.jpaSpringboot.models.db.entities.Sugerencia;
+import desarrolloweb.jpaSpringboot.models.db.repositories.SugerenciaRepository;
 
 import java.util.List;
 

@@ -30,6 +30,12 @@ CREATE TABLE mensajes (
     contenido TEXT
 );
 
+CREATE TABLE usuarios_partidas (
+    id SERIAL PRIMARY KEY,
+    usuario_id INT NOT NULL REFERENCES usuarios(id),
+    partida_id INT NOT NULL REFERENCES partidas(id),
+    UNIQUE (usuario_id, partida_id)
+);
 
 -- Table for partidas
 CREATE TABLE partidas (

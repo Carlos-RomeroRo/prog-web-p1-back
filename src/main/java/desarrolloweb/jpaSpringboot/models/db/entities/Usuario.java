@@ -1,4 +1,4 @@
-package desarrolloweb.progwebp1back.models.db.entities;
+package desarrolloweb.jpaSpringboot.models.db.entities;
 
 import java.sql.Timestamp;
 
