@@ -1,4 +1,4 @@
-package desarrolloweb.jpaSpringboot.models.db.entities;
+package desarrolloweb.jpa.models.db.entities;
 
 import lombok.Data;
 

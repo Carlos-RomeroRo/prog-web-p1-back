@@ -1,10 +1,10 @@
-package desarrolloweb.jpaSpringboot.models.db.services;
+package desarrolloweb.jpa.models.db.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import desarrolloweb.jpaSpringboot.models.db.entities.Partida;
-import desarrolloweb.jpaSpringboot.models.db.repositories.PartidaRepository;
+import desarrolloweb.jpa.models.db.entities.Partida;
+import desarrolloweb.jpa.models.db.repositories.PartidaRepository;
 
 import java.util.List;
 
