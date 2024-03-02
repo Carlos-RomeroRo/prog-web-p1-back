@@ -15,8 +15,8 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/usuarios")
-    public List<Usuario> obtenerTodosLosUsuarios() {
-        return usuarioService.obtenerTodosLosUsuarios();
+    @GetMapping("/users")
+    public List<Usuario> getAllUsers() {
+        return usuarioService.getAll();
     }
 }

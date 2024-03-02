@@ -14,7 +14,28 @@ public class MensajeService {
     @Autowired
     private MensajeRepository mensajeRepository;
 
-    public List<Mensaje> obtenerTodosLosMensajes() {
+    // get all
+    public List<Mensaje> getAll() {
         return mensajeRepository.findAll();
+    }
+
+    //get one
+    public Mensaje get(Long id) {
+        return mensajeRepository.findById(id).orElse(null);
+    }
+
+    //create one
+    public Mensaje create(Mensaje mensaje) {
+        return mensajeRepository.save(mensaje);
+    }
+
+    //edit one
+    public Mensaje edit(Mensaje mensaje) {
+        return mensajeRepository.save(mensaje);
+    }
+
+    //delete one
+    public void delete(Long id) {
+        mensajeRepository.deleteById(id);
     }
 }

@@ -5,5 +5,5 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public class Message {
-    @Getter String message;
+    @Getter private String content;
 }

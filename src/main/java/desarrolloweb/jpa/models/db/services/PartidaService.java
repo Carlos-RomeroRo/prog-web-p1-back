@@ -14,7 +14,23 @@ public class PartidaService {
     @Autowired
     private PartidaRepository partidaRepository;
 
-    public List<Partida> obtenerTodasLasPartidas() {
+    public List<Partida> getAll() {
         return partidaRepository.findAll();
+    }
+
+    public Partida get(Long id) {
+        return partidaRepository.findById(id).orElse(null);
+    }
+
+    public Partida create(Partida partida) {
+        return partidaRepository.save(partida);
+    }
+
+    public Partida edit(Partida partida) {
+        return partidaRepository.save(partida);
+    }
+
+    public void delete(Long id) {
+        partidaRepository.deleteById(id);
     }
 }
