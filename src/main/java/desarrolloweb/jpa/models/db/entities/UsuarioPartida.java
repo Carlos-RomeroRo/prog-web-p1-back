@@ -1,9 +1,11 @@
 package desarrolloweb.jpa.models.db.entities;
 
+import lombok.Builder;
 import lombok.Data;
 import jakarta.persistence.*;
 
 @Entity
+@Builder
 @Data
 @Table(name = "usuarios_partidas")
 public class UsuarioPartida {

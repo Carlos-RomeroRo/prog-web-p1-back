@@ -1,5 +1,6 @@
 package desarrolloweb.jpa.models.db.entities;
 
+import lombok.Builder;
 import lombok.Data;
 
 import jakarta.persistence.Column;
@@ -15,6 +16,7 @@ import java.sql.Date;
 import java.sql.Time;
 
 @Entity
+@Builder
 @Data
 @Table(name = "partidas")
 public class Partida {

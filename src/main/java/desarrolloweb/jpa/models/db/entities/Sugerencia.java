@@ -1,5 +1,6 @@
 package desarrolloweb.jpa.models.db.entities;
 
+import lombok.Builder;
 import lombok.Data;
 
 import jakarta.persistence.Column;
@@ -12,6 +13,7 @@ import jakarta.persistence.Table;
 import java.sql.Timestamp;
 
 @Entity
+@Builder
 @Data
 @Table(name = "sugerencias")
 public class Sugerencia {
