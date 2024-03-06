@@ -1,13 +1,17 @@
 package desarrolloweb.jpa.models.db.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
 @Entity
 @Builder
 @Data
 @Table(name = "usuarios_partidas")
+@NoArgsConstructor
+@AllArgsConstructor
 public class UsuarioPartida {
 
     @Id
