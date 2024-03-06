@@ -15,6 +15,9 @@ import jakarta.persistence.Table;
 
 import java.sql.Timestamp;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Builder
 @Data
@@ -28,10 +31,12 @@ public class Mensaje {
     private Long id;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "creador_email", referencedColumnName = "email", nullable = false)
     private Usuario creador;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "destinatario_email", referencedColumnName = "email", nullable = false)
     private Usuario destinatario;
 

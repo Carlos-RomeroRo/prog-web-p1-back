@@ -24,23 +24,16 @@ CREATE TABLE usuarios (
 -- Table for messages
 CREATE TABLE mensajes (
     id SERIAL PRIMARY KEY,
-    creador_email VARCHAR(100) NOT NULL REFERENCES usuarios(email),
-    destinatario_email VARCHAR(100) NOT NULL REFERENCES usuarios(email),
+    creador_email VARCHAR(100) NOT NULL REFERENCES usuarios(email) ON DELETE CASCADE,
+    destinatario_email VARCHAR(100) NOT NULL REFERENCES usuarios(email) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     contenido TEXT
-);
-
-CREATE TABLE usuarios_partidas (
-    id SERIAL PRIMARY KEY,
-    usuario_id INT NOT NULL REFERENCES usuarios(id),
-    partida_id INT NOT NULL REFERENCES partidas(id),
-    UNIQUE (usuario_id, partida_id)
 );
 
 -- Table for partidas
 CREATE TABLE partidas (
     id SERIAL PRIMARY KEY,
-    creador_email VARCHAR(100) NOT NULL REFERENCES usuarios(email),
+    creador_email VARCHAR(100) NOT NULL REFERENCES usuarios(email) ON DELETE CASCADE,
     deporte VARCHAR(100) NOT NULL,
     ciudad VARCHAR(100) NOT NULL,
     provincia VARCHAR(100) NOT NULL,
@@ -52,6 +45,13 @@ CREATE TABLE partidas (
     comentarios VARCHAR(100) NOT NULL
 );
 
+
+CREATE TABLE usuarios_partidas (
+    id SERIAL PRIMARY KEY,
+    usuario_id INT NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+    partida_id INT NOT NULL REFERENCES partidas(id) ON DELETE CASCADE,
+    UNIQUE (usuario_id, partida_id)
+);
 
 -- table for suggestions
 CREATE TABLE sugerencias (
