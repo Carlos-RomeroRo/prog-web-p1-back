@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import desarrolloweb.jpa.models.api.Message;
+import desarrolloweb.jpa.models.api.ResJsonEntity;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,8 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MainController {
     @GetMapping("/")
-    public ResponseEntity<Message> hello(HttpServletRequest request) {
+    public ResponseEntity<ResJsonEntity> hello(HttpServletRequest request) {
         log.info("request: " + request.getRequestURL());
-        return new ResponseEntity<>(new Message("Welcome to the ProgWebP1!"), HttpStatus.OK);
+        ResJsonEntity res = new ResJsonEntity();
+        res.AddDataToRes("message", "Welcome to the ProgWebP1!");
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }
