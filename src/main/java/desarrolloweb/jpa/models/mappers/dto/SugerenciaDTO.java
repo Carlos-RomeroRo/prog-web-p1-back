@@ -5,10 +5,8 @@ import java.sql.Timestamp;
 import lombok.Data;
 
 @Data
-public class MensajeDTO {
+public class SugerenciaDTO {
     private Long id;
-    private String creadorEmail;
-    private String destinatarioEmail;
+    private String descripcion;
     private Timestamp createdAt;
-    private String contenido;
 }

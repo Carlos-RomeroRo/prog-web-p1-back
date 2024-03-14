@@ -5,8 +5,13 @@ import org.springframework.stereotype.Service;
 
 import desarrolloweb.jpa.models.db.entities.UsuarioPartida;
 import desarrolloweb.jpa.models.db.repositories.UsuariosPartidaRepository;
+import desarrolloweb.jpa.models.db.repositories.PartidaRepository;
+import desarrolloweb.jpa.models.db.repositories.UsuarioRepository;
+import desarrolloweb.jpa.models.mappers.mapper.UsuarioPartidaMapper;
+import desarrolloweb.jpa.models.mappers.dto.UsuarioPartidaDTO;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuariosPartidaService {
@@ -14,20 +19,42 @@ public class UsuariosPartidaService {
     @Autowired
     private UsuariosPartidaRepository usuariosPartidaRepository;
 
-    public List<UsuarioPartida> getAll() {
-        return usuariosPartidaRepository.findAll();
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PartidaRepository partidaRepository;
+
+    public List<UsuarioPartidaDTO> getAll() {
+        List<UsuarioPartida> usuarioPartidas = usuariosPartidaRepository.findAll();
+        return usuarioPartidas.stream()
+                .map(UsuarioPartidaMapper::usuarioPartidaToDto)
+                .collect(Collectors.toList());
     }
 
-    public UsuarioPartida get(Long id) {
-        return usuariosPartidaRepository.findById(id).orElse(null);
+    public UsuarioPartidaDTO get(Long id) {
+        UsuarioPartida usuarioPartida = usuariosPartidaRepository.findById(id).orElse(null);
+        if (usuarioPartida == null) {
+            return null;
+        }
+        return UsuarioPartidaMapper.usuarioPartidaToDto(usuarioPartida);
     }
 
-    public void create(UsuarioPartida usuarioPartida) {
-        usuariosPartidaRepository.save(usuarioPartida);
+    public UsuarioPartidaDTO create(UsuarioPartidaDTO usuarioPartidaDTO) {
+        UsuarioPartida usuarioPartida = UsuarioPartidaMapper.dtoToUsuarioPartida(usuarioPartidaDTO, usuarioRepository, partidaRepository);
+        usuarioPartida = usuariosPartidaRepository.save(usuarioPartida);
+        return UsuarioPartidaMapper.usuarioPartidaToDto(usuarioPartida);
     }
 
-    public void edit(UsuarioPartida usuarioPartida) {
-        usuariosPartidaRepository.save(usuarioPartida);
+    public Boolean edit(UsuarioPartidaDTO usuarioPartidaDTO) {
+        try {
+            UsuarioPartida usuarioPartida = UsuarioPartidaMapper.dtoToUsuarioPartida(usuarioPartidaDTO, usuarioRepository, partidaRepository);
+            usuariosPartidaRepository.save(usuarioPartida);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     public void delete(Long id) {

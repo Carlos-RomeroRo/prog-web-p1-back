@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import desarrolloweb.jpa.models.api.ResJsonEntity;
-import desarrolloweb.jpa.models.db.entities.Sugerencia;
 import desarrolloweb.jpa.models.db.services.SugerenciaService;
+import desarrolloweb.jpa.models.mappers.dto.SugerenciaDTO;
 
 
 @RestController
@@ -21,7 +21,7 @@ public class SugerenciaController {
 
     @GetMapping("/suggestions")
     public ResponseEntity<ResJsonEntity> getAll() {
-        List<Sugerencia> data = service.getAll();
+        List<SugerenciaDTO> data = service.getAll();
         ResJsonEntity res = new ResJsonEntity();
         if (data != null && !data.isEmpty()) {
             res.AddDataToRes("data", data);

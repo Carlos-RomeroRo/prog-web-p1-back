@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import desarrolloweb.jpa.models.api.ResJsonEntity;
-import desarrolloweb.jpa.models.db.entities.UsuarioPartida;
 import desarrolloweb.jpa.models.db.services.UsuariosPartidaService;
+import desarrolloweb.jpa.models.mappers.dto.UsuarioPartidaDTO;
 
 @RestController
 public class UsuarioPartidaController {
@@ -20,7 +20,7 @@ public class UsuarioPartidaController {
 
     @GetMapping("/user-games")
     public ResponseEntity<ResJsonEntity> getAll() {
-        List<UsuarioPartida> data = usuariosPartidaService.getAll();
+        List<UsuarioPartidaDTO> data = usuariosPartidaService.getAll();
         ResJsonEntity res = new ResJsonEntity();
         if (data != null && !data.isEmpty()) {
             res.AddDataToRes("data", data);
