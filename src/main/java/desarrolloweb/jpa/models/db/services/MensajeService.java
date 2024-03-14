@@ -5,8 +5,12 @@ import org.springframework.stereotype.Service;
 
 import desarrolloweb.jpa.models.db.entities.Mensaje;
 import desarrolloweb.jpa.models.db.repositories.MensajeRepository;
+import desarrolloweb.jpa.models.db.repositories.UsuarioRepository;
+import desarrolloweb.jpa.models.mappers.mapper.MensajeMapper;
+import desarrolloweb.jpa.models.mappers.dto.MensajeDTO;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MensajeService {
@@ -14,27 +18,36 @@ public class MensajeService {
     @Autowired
     private MensajeRepository mensajeRepository;
 
-    // get all
-    public List<Mensaje> getAll() {
-        return mensajeRepository.findAll();
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public List<MensajeDTO> getAll() {
+        List<Mensaje> mensajes = mensajeRepository.findAll();
+        return mensajes.stream()
+                .map(MensajeMapper::mensajeToDto)
+                .collect(Collectors.toList());
     }
 
-    //get one
-    public Mensaje get(Long id) {
-        return mensajeRepository.findById(id).orElse(null);
+    public MensajeDTO get(Long id) {
+        Mensaje mensaje = mensajeRepository.findById(id).orElse(null);
+        if (mensaje == null) {
+            return null;
+        }
+        return MensajeMapper.mensajeToDto(mensaje);
     }
 
-    //create one
-    public Mensaje create(Mensaje mensaje) {
-        return mensajeRepository.save(mensaje);
+    public MensajeDTO create(MensajeDTO mensajeDTO) {
+        Mensaje mensaje = MensajeMapper.dtoToMensaje(mensajeDTO, usuarioRepository);
+        mensaje = mensajeRepository.save(mensaje);
+        return MensajeMapper.mensajeToDto(mensaje);
     }
 
-    //edit one
-    public Mensaje edit(Mensaje mensaje) {
-        return mensajeRepository.save(mensaje);
+    public MensajeDTO edit(MensajeDTO mensajeDTO) {
+        Mensaje mensaje = MensajeMapper.dtoToMensaje(mensajeDTO, usuarioRepository);
+        mensaje = mensajeRepository.save(mensaje);
+        return MensajeMapper.mensajeToDto(mensaje);
     }
 
-    //delete one
     public void delete(Long id) {
         mensajeRepository.deleteById(id);
     }
