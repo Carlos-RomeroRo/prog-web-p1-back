@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import desarrolloweb.jpa.models.api.ResJsonEntity;
-import desarrolloweb.jpa.models.db.entities.Partida;
 import desarrolloweb.jpa.models.db.services.PartidaService;
+import desarrolloweb.jpa.models.mappers.dto.PartidaDTO;
 
 
 
@@ -21,16 +21,13 @@ public class PartidaController {
 
     @GetMapping("/games")
     public ResponseEntity<ResJsonEntity> getAll() {
-        List<Partida> data = partidaService.getAll();
+        List<PartidaDTO> data = partidaService.getAll();
         ResJsonEntity res = new ResJsonEntity();
-        if (data != null && !data.isEmpty()) {
-            res.AddDataToRes("data", data);
-            return new ResponseEntity<>(res, HttpStatus.OK);
-        }else{
+        res.AddDataToRes("data", data);
+        if (data == null || data.isEmpty()) {
             res.AddDataToRes("message", "There are no games");
-            res.AddDataToRes("data", data);
-            return new ResponseEntity<>(res, HttpStatus.NO_CONTENT);
         }
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
     
 }
