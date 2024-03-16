@@ -16,7 +16,7 @@ public class MainController {
     public ResponseEntity<ResJsonEntity> hello(HttpServletRequest request) {
         log.info("request: " + request.getRequestURL());
         ResJsonEntity res = new ResJsonEntity();
-        res.AddDataToRes("message", "Welcome to the ProgWebP1!");
+        res.AddMessageToRes( "Welcome to the ProgWebP1!");
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }
