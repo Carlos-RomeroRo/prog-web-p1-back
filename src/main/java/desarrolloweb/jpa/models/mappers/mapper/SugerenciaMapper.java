@@ -5,6 +5,10 @@ import desarrolloweb.jpa.models.mappers.dto.SugerenciaDTO;
 
 public class SugerenciaMapper {
     public static SugerenciaDTO sugerenciaToDto(Sugerencia sugerencia) {
+        // handle null
+        if (sugerencia == null) {
+            return null;
+        }
         SugerenciaDTO dto = new SugerenciaDTO();
         dto.setId(sugerencia.getId());
         dto.setDescripcion(sugerencia.getDescripcion());
@@ -13,6 +17,10 @@ public class SugerenciaMapper {
     }
 
     public static Sugerencia dtoToSugerencia(SugerenciaDTO dto) {
+        // handle null
+        if (dto == null) {
+            return null;
+        }
         Sugerencia sugerencia = new Sugerencia();
         sugerencia.setId(dto.getId());
         sugerencia.setDescripcion(dto.getDescripcion());

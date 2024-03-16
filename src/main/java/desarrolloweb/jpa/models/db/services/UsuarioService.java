@@ -6,17 +6,24 @@ import org.springframework.stereotype.Service;
 import desarrolloweb.jpa.models.db.entities.Usuario;
 import desarrolloweb.jpa.models.db.repositories.UsuarioRepository;
 import desarrolloweb.jpa.models.mappers.mapper.UsuarioMapper;
+import lombok.extern.slf4j.Slf4j;
 import desarrolloweb.jpa.models.mappers.dto.UsuarioDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    /**
+     * Get all the games from the database
+     * 
+     * @return List<UsuarioDTO> the list of games
+     */
     public List<UsuarioDTO> getAll() {
         List<Usuario> usuarios = usuarioRepository.findAll();
         return usuarios.stream()
@@ -24,28 +31,64 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Get a game from the database
+     * 
+     * @param id the id of the game
+     * @return UsuarioDTO the game
+     */
     public UsuarioDTO get(Long id) {
-        Usuario usuario = usuarioRepository.findById(id).orElse(null);
-        if (usuario == null) {
+        Usuario usuario;
+        try {
+            usuario = usuarioRepository.findById(id).orElse(null);
+        } catch (Exception e) {
+            log.error("Error on get", e.getMessage());
             return null;
         }
         return UsuarioMapper.usuarioToDto(usuario);
     }
 
+    /**
+     * Get a game from the database
+     * 
+     * @param email the email of the game
+     * @return UsuarioDTO the game
+     */
     public UsuarioDTO findByEmail(String email) {
-        Usuario usuario = usuarioRepository.findByEmail(email);
-        if (usuario == null) {
+        Usuario usuario;
+        try {
+            usuario = usuarioRepository.findByEmail(email);
+        } catch (Exception e) {
+            log.error("Error on get", e.getMessage());
             return null;
         }
         return UsuarioMapper.usuarioToDto(usuario);
     }
 
+    /**
+     * Create a new game
+     * 
+     * @param usuarioDTO the game
+     * @return UsuarioDTO the created game
+     */
     public UsuarioDTO create(UsuarioDTO usuarioDTO) {
-        Usuario usuario = UsuarioMapper.dtoToUsuario(usuarioDTO);
-        usuario = usuarioRepository.save(usuario);
+        Usuario usuario;
+        try {
+            usuario = UsuarioMapper.dtoToUsuario(usuarioDTO);
+            usuario = usuarioRepository.save(usuario);
+        } catch (Exception e) {
+            log.error("Error on create", e.getMessage());
+            return null;
+        }
         return UsuarioMapper.usuarioToDto(usuario);
     }
 
+    /**
+     * Edit a game
+     * 
+     * @param usuarioDTO the game
+     * @return Boolean true if the game was edited
+     */
     public Boolean edit(UsuarioDTO usuarioDTO) {
         try {
             Usuario usuario = UsuarioMapper.dtoToUsuario(usuarioDTO);
@@ -57,7 +100,19 @@ public class UsuarioService {
         return true;
     }
 
-    public void delete(Long id) {
-        usuarioRepository.deleteById(id);
+    /**
+     * Delete a game
+     * 
+     * @param id the id of the game
+     * @return Boolean true if the game was deleted
+     */
+    public Boolean delete(Long id) {
+        try {
+            usuarioRepository.deleteById(id);
+        } catch (Exception e) {
+            log.error("Error on delete", e.getMessage());
+            return false;
+        }
+        return true;
     }
 }

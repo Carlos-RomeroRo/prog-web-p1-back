@@ -7,6 +7,10 @@ import desarrolloweb.jpa.models.mappers.dto.PartidaDTO;
 public class PartidaMapper {
 
     public static PartidaDTO partidaToDto(Partida partida) {
+        // handle null
+        if (partida == null) {
+            return null;
+        }
         PartidaDTO dto = new PartidaDTO();
         dto.setId(partida.getId());
         dto.setCreadorEmail(partida.getCreadorEmail().getEmail());
@@ -23,6 +27,10 @@ public class PartidaMapper {
     }
 
     public static Partida dtoToPartida(PartidaDTO dto, UsuarioRepository usuarioRepository) {
+        // handle null
+        if (dto == null) {
+            return null;
+        }
         Partida partida = new Partida();
         partida.setId(dto.getId());
         partida.setCreadorEmail(usuarioRepository.findByEmail(dto.getCreadorEmail()));

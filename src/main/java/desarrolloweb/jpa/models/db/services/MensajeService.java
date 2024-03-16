@@ -7,11 +7,13 @@ import desarrolloweb.jpa.models.db.entities.Mensaje;
 import desarrolloweb.jpa.models.db.repositories.MensajeRepository;
 import desarrolloweb.jpa.models.db.repositories.UsuarioRepository;
 import desarrolloweb.jpa.models.mappers.mapper.MensajeMapper;
+import lombok.extern.slf4j.Slf4j;
 import desarrolloweb.jpa.models.mappers.dto.MensajeDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class MensajeService {
 
@@ -21,6 +23,11 @@ public class MensajeService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    /**
+     * Get all the messages from the database
+     * 
+     * @return List<MensajeDTO> the list of messages
+     */
     public List<MensajeDTO> getAll() {
         List<Mensaje> mensajes = mensajeRepository.findAll();
         return mensajes.stream()
@@ -28,27 +35,72 @@ public class MensajeService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Get a message from the database
+     * 
+     * @param id the id of the message
+     * @return MensajeDTO the message
+     */
     public MensajeDTO get(Long id) {
-        Mensaje mensaje = mensajeRepository.findById(id).orElse(null);
-        if (mensaje == null) {
+        Mensaje mensaje;
+        try {
+            mensaje = mensajeRepository.findById(id).orElse(null);
+        } catch (Exception e) {
+            log.error("Error on get", e.getMessage());
             return null;
         }
         return MensajeMapper.mensajeToDto(mensaje);
     }
 
+    /**
+     * Create a new message
+     * 
+     * @param mensajeDTO the message
+     * @return MensajeDTO the created message
+     */
     public MensajeDTO create(MensajeDTO mensajeDTO) {
-        Mensaje mensaje = MensajeMapper.dtoToMensaje(mensajeDTO, usuarioRepository);
-        mensaje = mensajeRepository.save(mensaje);
+        Mensaje mensaje;
+        try {
+            mensaje = MensajeMapper.dtoToMensaje(mensajeDTO, usuarioRepository);
+            mensaje = mensajeRepository.save(mensaje);
+        } catch (Exception e) {
+            log.error("Error on create", e.getMessage());
+            return null;
+        }
         return MensajeMapper.mensajeToDto(mensaje);
     }
 
-    public MensajeDTO edit(MensajeDTO mensajeDTO) {
-        Mensaje mensaje = MensajeMapper.dtoToMensaje(mensajeDTO, usuarioRepository);
-        mensaje = mensajeRepository.save(mensaje);
-        return MensajeMapper.mensajeToDto(mensaje);
+    /**
+     * Edit a message
+     * 
+     * @param mensajeDTO the message
+     * @return Boolean true if the message was edited
+     */
+    public Boolean edit(MensajeDTO mensajeDTO) {
+        Mensaje mensaje;
+        try {
+            mensaje = MensajeMapper.dtoToMensaje(mensajeDTO, usuarioRepository);
+            mensajeRepository.save(mensaje);
+        } catch (Exception e) {
+            log.error("Error on edit", e.getMessage());
+            return false;
+        }
+        return true;
     }
 
-    public void delete(Long id) {
-        mensajeRepository.deleteById(id);
+    /**
+     * Delete a message
+     *
+     * @param id the id of the message
+     * @return Boolean true if the message was deleted
+     */
+    public Boolean delete(Long id) {
+        try {
+            mensajeRepository.deleteById(id);
+        } catch (Exception e) {
+            log.error("Error on delete", e.getMessage());
+            return false;
+        }
+        return true;
     }
 }

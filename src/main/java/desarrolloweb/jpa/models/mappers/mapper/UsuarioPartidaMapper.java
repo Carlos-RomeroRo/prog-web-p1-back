@@ -8,6 +8,10 @@ import desarrolloweb.jpa.models.mappers.dto.UsuarioPartidaDTO;
 public class UsuarioPartidaMapper {
 
     public static UsuarioPartidaDTO usuarioPartidaToDto(UsuarioPartida usuarioPartida) {
+        // handle null
+        if (usuarioPartida == null) {
+            return null;
+        }
         UsuarioPartidaDTO dto = new UsuarioPartidaDTO();
         dto.setId(usuarioPartida.getId());
         dto.setUsuarioId(usuarioPartida.getUsuario().getId());
@@ -17,6 +21,10 @@ public class UsuarioPartidaMapper {
 
     public static UsuarioPartida dtoToUsuarioPartida(UsuarioPartidaDTO dto, UsuarioRepository usuarioRepository,
             PartidaRepository partidaRepository) {
+        // handle null
+        if (dto == null) {
+            return null;
+        }
         UsuarioPartida usuarioPartida = new UsuarioPartida();
         usuarioPartida.setId(dto.getId());
         usuarioPartida.setUsuario(usuarioRepository.findById(dto.getUsuarioId()).orElse(null));

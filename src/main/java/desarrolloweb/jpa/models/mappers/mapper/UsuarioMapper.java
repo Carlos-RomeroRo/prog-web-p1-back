@@ -6,6 +6,10 @@ import desarrolloweb.jpa.models.mappers.dto.UsuarioDTO;
 public class UsuarioMapper {
 
     public static UsuarioDTO usuarioToDto(Usuario usuario) {
+        // handle null
+        if (usuario == null) {
+            return null;
+        }
         UsuarioDTO dto = new UsuarioDTO();
         dto.setId(usuario.getId());
         dto.setUsername(usuario.getUsername());
@@ -23,6 +27,10 @@ public class UsuarioMapper {
     }
 
     public static Usuario dtoToUsuario(UsuarioDTO dto) {
+        // handle null
+        if (dto == null) {
+            return null;
+        }
         Usuario usuario = new Usuario();
         usuario.setId(dto.getId());
         usuario.setUsername(dto.getUsername());

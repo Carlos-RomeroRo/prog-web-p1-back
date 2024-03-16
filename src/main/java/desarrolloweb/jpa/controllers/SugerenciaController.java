@@ -23,14 +23,11 @@ public class SugerenciaController {
     public ResponseEntity<ResJsonEntity> getAll() {
         List<SugerenciaDTO> data = service.getAll();
         ResJsonEntity res = new ResJsonEntity();
-        if (data != null && !data.isEmpty()) {
-            res.AddDataToRes("data", data);
-            return new ResponseEntity<>(res, HttpStatus.OK);
-        }else{
+        res.AddDataToRes("data", data);
+        if (data == null || data.isEmpty()) {
             res.AddDataToRes("message", "There are no suggestions");
-            res.AddDataToRes("data", data);
-            return new ResponseEntity<>(res, HttpStatus.NO_CONTENT);
         }
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
     
 }

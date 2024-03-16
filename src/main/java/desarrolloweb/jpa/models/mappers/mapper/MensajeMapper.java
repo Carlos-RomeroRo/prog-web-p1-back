@@ -7,6 +7,10 @@ import desarrolloweb.jpa.models.mappers.dto.MensajeDTO;
 public class MensajeMapper {
 
     public static MensajeDTO mensajeToDto(Mensaje mensaje) {
+        // handle null
+        if (mensaje == null) {
+            return null;
+        }
         MensajeDTO dto = new MensajeDTO();
         dto.setId(mensaje.getId());
         dto.setCreadorEmail(mensaje.getCreador().getEmail());
@@ -17,6 +21,10 @@ public class MensajeMapper {
     }
 
     public static Mensaje dtoToMensaje(MensajeDTO dto, UsuarioRepository usuarioRepository) {
+        // handle null
+        if (dto == null) {
+            return null;
+        }
         Mensaje mensaje = new Mensaje();
         mensaje.setId(dto.getId());
         mensaje.setCreador(usuarioRepository.findByEmail(dto.getCreadorEmail()));
