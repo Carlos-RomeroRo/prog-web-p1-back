@@ -10,6 +10,7 @@ import desarrolloweb.jpa.models.mappers.mapper.MensajeMapper;
 import lombok.extern.slf4j.Slf4j;
 import desarrolloweb.jpa.models.mappers.dto.MensajeDTO;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,6 +62,7 @@ public class MensajeService {
     public MensajeDTO create(MensajeDTO mensajeDTO) {
         Mensaje mensaje;
         try {
+            mensajeDTO.setCreatedAt(Timestamp.from(java.time.Instant.now()));
             mensaje = MensajeMapper.dtoToMensaje(mensajeDTO, usuarioRepository);
             mensaje = mensajeRepository.save(mensaje);
         } catch (Exception e) {
@@ -74,11 +76,19 @@ public class MensajeService {
      * Edit a message
      * 
      * @param mensajeDTO the message
+     * @param original the original message
      * @return Boolean true if the message was edited
      */
-    public Boolean edit(MensajeDTO mensajeDTO) {
+    public Boolean edit(MensajeDTO mensajeDTO, MensajeDTO original) {
+        if (original == null) {
+            return false;
+        }
+
+        
         Mensaje mensaje;
         try {
+            mensajeDTO.setCreatedAt(original.getCreatedAt());
+            mensajeDTO.setId(original.getId());
             mensaje = MensajeMapper.dtoToMensaje(mensajeDTO, usuarioRepository);
             mensajeRepository.save(mensaje);
         } catch (Exception e) {

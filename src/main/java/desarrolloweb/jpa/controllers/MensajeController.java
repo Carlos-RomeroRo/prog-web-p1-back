@@ -32,6 +32,7 @@ public class MensajeController {
     // CRUD Get (read)
     @GetMapping("/messages")
     public ResponseEntity<ResJsonEntity> getAll() {
+        log.info("Getting all messages");
         List<MensajeDTO> data = mensajeService.getAll();
         ResJsonEntity res = new ResJsonEntity();
         res.AddDataToRes("data", data);
@@ -44,6 +45,7 @@ public class MensajeController {
     // CRUD Get (read by id)
     @GetMapping("/messages/{id}")
     public ResponseEntity<ResJsonEntity> get(@PathVariable("id") Long id) {
+        log.info("Getting message with id: " + id);
         MensajeDTO data = mensajeService.get(id);
         ResJsonEntity res = new ResJsonEntity();
         res.AddDataToRes("data", data);
@@ -56,6 +58,7 @@ public class MensajeController {
     // CRUD Delete
     @DeleteMapping("/messages/{id}/delete")
     public ResponseEntity<ResJsonEntity> delete(@PathVariable("id") Long id) {
+        log.info("Deleting message with id: " + id);
         boolean deleted = mensajeService.delete(id);
         ResJsonEntity res = new ResJsonEntity();
         res.AddDataToRes("deleted", deleted);
@@ -68,6 +71,7 @@ public class MensajeController {
     // CRUD Update
     @PutMapping("/messages/{id}/update")
     public ResponseEntity<ResJsonEntity> update(@PathVariable("id") Long id, @RequestBody MensajeDTO body) {
+        log.info("Updating message with id: " + id);
         // check if the message exists
         MensajeDTO message = mensajeService.get(id);
         if (message == null) {
@@ -77,7 +81,7 @@ public class MensajeController {
         }
 
         // update the message
-        boolean updated = mensajeService.edit(body);
+        boolean updated = mensajeService.edit(body, message);
         ResJsonEntity res = new ResJsonEntity();
         res.AddDataToRes("updated", updated);
         if (!updated) {
@@ -89,6 +93,7 @@ public class MensajeController {
     // CRUD Create
     @PostMapping("/messages/create")
     public ResponseEntity<ResJsonEntity> create(@RequestBody MensajeDTO body) {
+        log.info("Creating new message");
         MensajeDTO created = mensajeService.create(body);
         ResJsonEntity res = new ResJsonEntity();
         res.AddDataToRes("created", created);

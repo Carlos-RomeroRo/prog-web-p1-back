@@ -19,7 +19,7 @@ public class UsuarioDTO {
     private String rol;
     private Timestamp createdAt;
     // body json example
-    /*
+    /* json to create/edit a new user
      {
         "username": "username",
         "email": "email",
@@ -31,7 +31,6 @@ public class UsuarioDTO {
         "enabled": true,
         "foto": "fotos",
         "rol": "admin",
-        "createdAt": "createdAt"
     }
      */
 }

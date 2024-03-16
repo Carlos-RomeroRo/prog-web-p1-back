@@ -19,7 +19,7 @@ public class PartidaDTO {
     private Integer suplentes;
     private String comentarios;
     // body json example
-    /*
+    /* json to create/edit a partida
         {
             "creadorEmail": "LJqOo@example.com",
             "deporte": "Futbol",

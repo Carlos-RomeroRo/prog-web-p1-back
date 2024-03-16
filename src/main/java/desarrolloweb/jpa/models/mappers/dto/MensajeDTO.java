@@ -12,11 +12,11 @@ public class MensajeDTO {
     private Timestamp createdAt;
     private String contenido;
     // body json example:
-    /*
+
+    /* json to create/edit a new message
         {
             "creadorEmail": "2KqfT@example.com",
             "destinatarioEmail": "2KqfT@example.com",
-            "createdAt": "2021-03-06T16:00:00.000Z",
             "contenido": "Hola, ¿cómo estás?"
         }
     */

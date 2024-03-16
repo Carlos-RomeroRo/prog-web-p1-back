@@ -74,10 +74,17 @@ public class PartidaService {
      * Edit a game
      * 
      * @param partidaDTO the game
+     * @param original   the original game
      * @return Boolean true if the game was edited
      */
-    public Boolean edit(PartidaDTO partidaDTO) {
+    public Boolean edit(PartidaDTO partidaDTO, PartidaDTO original) {
+        if (original == null) {
+            return false;
+        }
+
+        
         try {
+            partidaDTO.setId(original.getId());
             Partida partida = PartidaMapper.dtoToPartida(partidaDTO, usuarioRepository);
             partidaRepository.save(partida);
         } catch (Exception e) {

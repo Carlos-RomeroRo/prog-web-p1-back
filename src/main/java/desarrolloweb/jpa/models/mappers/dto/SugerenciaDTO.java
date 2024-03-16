@@ -10,10 +10,9 @@ public class SugerenciaDTO {
     private String descripcion;
     private Timestamp createdAt;
     // body json example
-    /*
+    /* json to create/edit a new suggestion
         {
             "descripcion": "sugerencia de prueba",
-            "created_at": "2022-01-01 12:00:00"
         }
      */
 }

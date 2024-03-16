@@ -79,15 +79,20 @@ public class UsuariosPartidaService {
      * Edit a user's game in the database
      * 
      * @param usuarioPartidaDTO the user's game
+     * @param original          the original user's game
      * @return Boolean true if the user's game was edited
      */
-    public Boolean edit(UsuarioPartidaDTO usuarioPartidaDTO) {
+    public Boolean edit(UsuarioPartidaDTO usuarioPartidaDTO, UsuarioPartidaDTO original) {
+        if (original == null) {
+            return false;
+        }
         try {
+            usuarioPartidaDTO.setId(original.getId());
             UsuarioPartida usuarioPartida = UsuarioPartidaMapper.dtoToUsuarioPartida(usuarioPartidaDTO,
                     usuarioRepository, partidaRepository);
             usuariosPartidaRepository.save(usuarioPartida);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error on edit", e.getMessage());
             return false;
         }
         return true;

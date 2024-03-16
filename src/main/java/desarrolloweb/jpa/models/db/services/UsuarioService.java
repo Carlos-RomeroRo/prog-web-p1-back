@@ -9,6 +9,7 @@ import desarrolloweb.jpa.models.mappers.mapper.UsuarioMapper;
 import lombok.extern.slf4j.Slf4j;
 import desarrolloweb.jpa.models.mappers.dto.UsuarioDTO;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +75,7 @@ public class UsuarioService {
     public UsuarioDTO create(UsuarioDTO usuarioDTO) {
         Usuario usuario;
         try {
+            usuarioDTO.setCreatedAt(Timestamp.from(java.time.Instant.now()));
             usuario = UsuarioMapper.dtoToUsuario(usuarioDTO);
             usuario = usuarioRepository.save(usuario);
         } catch (Exception e) {
@@ -87,10 +89,16 @@ public class UsuarioService {
      * Edit a game
      * 
      * @param usuarioDTO the game
+     * @param original   the original game
      * @return Boolean true if the game was edited
      */
-    public Boolean edit(UsuarioDTO usuarioDTO) {
+    public Boolean edit(UsuarioDTO usuarioDTO, UsuarioDTO original) {
+        if (original == null) {
+            return false;
+        }
         try {
+            usuarioDTO.setId(original.getId());
+            usuarioDTO.setCreatedAt(original.getCreatedAt());
             Usuario usuario = UsuarioMapper.dtoToUsuario(usuarioDTO);
             usuarioRepository.save(usuario);
         } catch (Exception e) {
