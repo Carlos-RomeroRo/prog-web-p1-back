@@ -9,6 +9,7 @@ import desarrolloweb.jpa.models.mappers.mapper.SugerenciaMapper;
 import lombok.extern.slf4j.Slf4j;
 import desarrolloweb.jpa.models.mappers.dto.SugerenciaDTO;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,6 +58,7 @@ public class SugerenciaService {
     public SugerenciaDTO create(SugerenciaDTO sugerenciaDTO) {
         Sugerencia sugerencia;
         try {
+            sugerenciaDTO.setCreatedAt(Timestamp.from(java.time.Instant.now()));
             sugerencia = SugerenciaMapper.dtoToSugerencia(sugerenciaDTO);
             sugerencia = sugerenciaRepository.save(sugerencia);
         } catch (Exception e) {
@@ -70,10 +72,16 @@ public class SugerenciaService {
      * Edit a suggestion
      * 
      * @param sugerenciaDTO the suggestion
+     * @param original the original suggestion
      * @return Boolean true if the suggestion was edited
      */
-    public Boolean edit(SugerenciaDTO sugerenciaDTO) {
+    public Boolean edit(SugerenciaDTO sugerenciaDTO, SugerenciaDTO original) {
+        if (original == null) {
+            return false;
+        }
         try {
+            sugerenciaDTO.setCreatedAt(original.getCreatedAt());
+            sugerenciaDTO.setId(original.getId());
             Sugerencia sugerencia = SugerenciaMapper.dtoToSugerencia(sugerenciaDTO);
             sugerenciaRepository.save(sugerencia);
         } catch (Exception e) {

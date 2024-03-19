@@ -9,4 +9,10 @@ public class SugerenciaDTO {
     private Long id;
     private String descripcion;
     private Timestamp createdAt;
+    // body json example
+    /* json to create/edit a new suggestion
+        {
+            "descripcion": "sugerencia de prueba",
+        }
+     */
 }

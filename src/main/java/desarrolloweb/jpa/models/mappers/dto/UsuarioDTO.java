@@ -18,4 +18,19 @@ public class UsuarioDTO {
     private String foto;
     private String rol;
     private Timestamp createdAt;
+    // body json example
+    /* json to create/edit a new user
+     {
+        "username": "username",
+        "email": "email",
+        "nombre": "nombre",
+        "apellidos": "apellidos",
+        "edad": 0,
+        "password": "password",
+        "repPassword": "password",
+        "enabled": true,
+        "foto": "fotos",
+        "rol": "admin",
+    }
+     */
 }

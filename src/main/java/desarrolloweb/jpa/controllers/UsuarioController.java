@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import desarrolloweb.jpa.models.api.ResJsonEntity;
 import desarrolloweb.jpa.models.db.services.UsuarioService;
 import desarrolloweb.jpa.models.mappers.dto.UsuarioDTO;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @RestController
+@Slf4j
 public class UsuarioController {
 
     @Autowired
@@ -24,7 +26,7 @@ public class UsuarioController {
         ResJsonEntity res = new ResJsonEntity();
         res.AddDataToRes("data", data);
         if (data == null || data.isEmpty()) {
-            res.AddDataToRes("message", "There are no users");
+            res.AddMessageToRes( "There are no users");
         }
         return new ResponseEntity<>(res, HttpStatus.OK);
     }

@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import desarrolloweb.jpa.models.api.ResJsonEntity;
 import desarrolloweb.jpa.models.db.services.PartidaService;
 import desarrolloweb.jpa.models.mappers.dto.PartidaDTO;
+import lombok.extern.slf4j.Slf4j;
 
 
 
 @RestController
+@Slf4j
 public class PartidaController {
     @Autowired
     private PartidaService partidaService;
@@ -25,7 +27,7 @@ public class PartidaController {
         ResJsonEntity res = new ResJsonEntity();
         res.AddDataToRes("data", data);
         if (data == null || data.isEmpty()) {
-            res.AddDataToRes("message", "There are no games");
+            res.AddMessageToRes( "There are no games");
         }
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
